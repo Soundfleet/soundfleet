@@ -22,14 +22,10 @@ class MusicPlaylist(models.Model):
 
 
 class MusicTrack(models.Model):
-    class Ranks(models.IntegerChoices):
-        LOW = 1
-        MID = 2
-        HIGH = 3
 
     playlist = models.ForeignKey(MusicPlaylist, on_delete=models.CASCADE)
     track = models.ForeignKey("media.AudioTrack", on_delete=models.CASCADE)
-    rank = models.PositiveSmallIntegerField(choices=Ranks.choices, default=1)
+    rank = models.PositiveSmallIntegerField(default=1)
 
     class Meta:
         verbose_name = "Music track"

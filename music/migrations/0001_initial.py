@@ -74,10 +74,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "rank",
-                    models.PositiveSmallIntegerField(
-                        choices=[(1, "Low"), (2, "Mid"), (3, "High")],
-                        default=1,
-                    ),
+                    models.PositiveSmallIntegerField(default=1),
                 ),
                 (
                     "playlist",
