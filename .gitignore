@@ -133,4 +133,4 @@ dmypy.json
 
 
 # custom settings
-soundfleet/settings/custom/storages.py
+soundfleet/settings/storages.py

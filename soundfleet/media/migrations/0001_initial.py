@@ -3,8 +3,8 @@
 from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
-import media.fields
-import media.storage.local
+import soundfleet.media.fields
+import soundfleet.media.storage.local
 
 
 class Migration(migrations.Migration):
@@ -73,9 +73,9 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "file",
-                    media.fields.AudioField(
+                    soundfleet.media.fields.AudioField(
                         max_length=255,
-                        storage=media.storage.local.Storage(
+                        storage=soundfleet.media.storage.local.Storage(
                             directory_structure=(2, 2), prefix="audio_tracks"
                         ),
                         upload_to="",

@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 
-from media.fields import AudioField
+from .fields import AudioField
 
 
 storage_module, storage_class = settings.AUDIO_TRACKS_STORAGE[

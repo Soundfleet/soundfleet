@@ -1,6 +1,6 @@
 from django.db import models
 
-from utils.db.fields import ColorField
+from soundfleet.utils.db.fields import ColorField
 
 
 class MusicPlaylist(models.Model):
@@ -14,8 +14,8 @@ class MusicPlaylist(models.Model):
     )
 
     class Meta:
-        verbose_name = "Playlist"
-        verbose_name_plural = "Playlists"
+        verbose_name = "Music Playlist"
+        verbose_name_plural = "Music playlists"
 
     def __str__(self) -> str:
         return f"{self.name}"

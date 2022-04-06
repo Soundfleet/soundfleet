@@ -37,9 +37,10 @@ INSTALLED_APPS = [
     # 3rd party apps
     "rest_framework",
     # local apps
-    "accounts",
-    "media",
-    "music",
+    "soundfleet.accounts",
+    "soundfleet.ads",
+    "soundfleet.media",
+    "soundfleet.music",
 ]
 
 MIDDLEWARE = [
@@ -113,7 +114,7 @@ LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
 
-USE_I18N = True
+USE_I18N = False
 
 USE_TZ = True
 
@@ -121,7 +122,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = env("STATIC_URL", default="static/")
+
+STATIC_ROOT = env("STATIC_ROOT", default="/assets/static/")
+
+MEDIA_URL = env("MEDIA_URL", default="media/")
+
+MEDIA_ROOT = env("MEDIA_ROOT", default="/assets/media/")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -130,11 +137,16 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 # Storage settings
-# Create storages.py file and setup audio tracks storage like in examples.
+# Create storages.py file and setup audio tracks storage.
 
-from .custom.storages import AUDIO_TRACKS_STORAGE
+from .storages import AUDIO_TRACKS_STORAGE
 
 
 # Google API
 
 GOOGLE_API_KEY = env("GOOGLE_API_KEY", default="dummy")
+
+
+# Receiver settings
+
+RECEIVER_DEFAULT_TIMEZONE = "UTC"

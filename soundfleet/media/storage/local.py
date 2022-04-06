@@ -7,7 +7,7 @@ from django.core.files.storage import FileSystemStorage
 from django.core.files.move import file_move_safe
 from django.utils._os import safe_join
 
-from media.storage.mixins import HashedStorageMixin
+from .mixins import HashedStorageMixin
 
 
 class Storage(HashedStorageMixin, FileSystemStorage):

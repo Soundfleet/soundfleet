@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.parsers import JSONParser, FormParser, MultiPartParser
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from url_filter.integrations.drf import DjangoFilterBackend
@@ -14,6 +15,7 @@ class BaseModelViewSet(ModelViewSet):
         OrderingFilter,
         SearchFilter,
     ]
+    permission_classes = [IsAuthenticated]
 
     def get_serializer(self, *args, **kwargs):
         if self.action == "partial_update":

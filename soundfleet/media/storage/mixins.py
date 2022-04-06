@@ -6,36 +6,34 @@ from typing import IO
 
 class HashedStorageMixin:
 
-    _rippers = {
-        "audio/mpeg": "media.storage.rippers.mp3",
-        # TODO: add more rippers (for ogg, wav, etc..)
+    _extensions = {
+        "audio/mpeg": "mp3",
+        "audio/ogg": "ogg",
     }
-    _default_ripper = "media.storage.rippers.dummy"
 
     def get_hashed_name(self, content: IO[bytes]) -> str:
         content.seek(0)
         mime_type = self._detect_mime_type(content)
-        ripper_module = __import__(
-            self._mime_type_to_ripper(mime_type), {}, {}, ["essence"]
-        )
-        essence, size, extension = ripper_module.essence(content)
+
+        size = self._get_size(content)
+        extension = self._extensions.get(mime_type, "")
 
         name = hashlib.sha1(mime_type.encode("utf-8"))
-        if hasattr(essence, "read"):
+        if hasattr(content, "read"):
             total = 0
             while True:
                 if size and total + 4096 > size:
-                    buf = essence.read(total + 4096 - size)
+                    buf = content.read(total + 4096 - size)
                     name.update(buf)
                     break
                 else:
-                    buf = essence.read(4096)
+                    buf = content.read(4096)
                     total += 4096
                 if not buf:
                     break
                 name.update(buf)
-        elif isinstance(essence, str):
-            name.update(essence.encode("utf-8"))
+        elif isinstance(content, str):
+            name.update(content.encode("utf-8"))
         content.seek(0)
         return (
             "{}.{}".format(name.hexdigest(), extension)
@@ -48,5 +46,8 @@ class HashedStorageMixin:
         content.seek(0)
         return mime_type
 
-    def _mime_type_to_ripper(self, mime_type):
-        return self._rippers.get(mime_type, self._default_ripper)
+    def _get_size(self, content):
+        content.seek(0)
+        size = len(content.read())
+        content.seek(0)
+        return size

@@ -31,29 +31,11 @@ class AudioFile(File):
 
     genre = property(__get_genre)
 
-    def __get_album(self):
-        album = self.metadata.get("album") or ""
-        return album
-
-    album = property(__get_album)
-
     def __get_length(self):
         length = self.metadata.get("total_time") or 0
         return length
 
     length = property(__get_length)
-
-    def __get_bitrate(self):
-        bitrate = self.metadata.get("bitrate") or 0
-        return bitrate
-
-    bitrate = property(__get_bitrate)
-
-    def __get_samplerate(self):
-        samplerate = self.metadata.get("samplerate") or 0
-        return samplerate
-
-    samplerate = property(__get_samplerate)
 
     def __get_metadata(self):
         if not hasattr(self, "_metadata_cache"):
